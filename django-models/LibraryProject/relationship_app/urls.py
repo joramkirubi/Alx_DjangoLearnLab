@@ -9,8 +9,8 @@ urlpatterns = [
     path("books/", views.list_books, name="list_books"),
     path("library/<int:pk>/", views.LibraryDetailView.as_view(), name="library_detail"),
     path("register/", views.register, name="register"),
-    path("login/", views.LoginView, name="login"),   # alias from views.py
-    path("logout/", views.LogoutView, name="logout"),  # alias from views.py
+    path("login/", views.LoginView, name="login"),
+    path("logout/", views.LogoutView, name="logout"),
 
     # Role-based views
     path("admin-view/", views.admin_view, name="admin_view"),
