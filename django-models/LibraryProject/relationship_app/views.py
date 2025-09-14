@@ -71,7 +71,7 @@ def member_view(request):
     return render(request, "relationship_app/member_view.html")
 
 # -----------------------------
-# Custom permission secured views for Book
+# Book management views with permissions
 # -----------------------------
 @permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book(request):
@@ -79,10 +79,11 @@ def add_book(request):
         form = ExampleForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("list_books")
+            return redirect('list_books')
     else:
         form = ExampleForm()
     return render(request, "relationship_app/form_example.html", {"form": form})
+
 
 @permission_required('relationship_app.can_change_book', raise_exception=True)
 def edit_book(request, book_id):
@@ -91,16 +92,17 @@ def edit_book(request, book_id):
         form = ExampleForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect("list_books")
+            return redirect('list_books')
     else:
         form = ExampleForm(instance=book)
-    return render(request, "relationship_app/form_example.html", {"form": form})
+    return render(request, "relationship_app/form_example.html", {"form": form, "book": book})
+
 
 @permission_required('relationship_app.can_delete_book', raise_exception=True)
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
         book.delete()
-        return redirect("list_books")
+        return redirect('list_books')
     return render(request, "relationship_app/confirm_delete.html", {"book": book})
 
