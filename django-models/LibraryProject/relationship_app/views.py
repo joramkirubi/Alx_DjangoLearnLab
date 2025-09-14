@@ -6,7 +6,8 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import user_passes_test, login_required
 
-from .models import Book, Library, UserProfile
+from .models import Book, UserProfile
+from .models import Library
 from .forms import ExampleForm
 
 
