@@ -3,16 +3,13 @@ from pathlib import Path
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 SECRET_KEY = 'django-insecure-ReplaceThisWithAnyRandomString123!@#'
 
 # Debug mode and allowed hosts
-DEBUG = True
+DEBUG = True  # Will override to False for security best practices below
 ALLOWED_HOSTS = ['*']
 
+# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,7 +27,6 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 # Dummy reference for automated checker
 # bookshelf.CustomUser
-
 
 # Middleware
 MIDDLEWARE = [
@@ -75,18 +71,10 @@ DATABASES = {
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # Internationalization
@@ -104,4 +92,28 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Redirects after login/logout
 LOGIN_REDIRECT_URL = '/books/'
 LOGOUT_REDIRECT_URL = '/login/'
+
+# -----------------------------
+# Security best practices
+# -----------------------------
+
+# DEBUG should never be True in production
+DEBUG = False
+
+# Browser security headers
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Cookies security
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Optional HTTPS redirect
+SECURE_SSL_REDIRECT = True
+
+# HSTS settings for HTTPS (optional but recommended)
+SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
