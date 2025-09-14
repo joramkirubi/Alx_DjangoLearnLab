@@ -1,12 +1,13 @@
 from django.contrib import admin
 from .models import Author, Book, Library
 
-# Real models registration
+# Register real models
 admin.site.register(Author)
 admin.site.register(Book)
 admin.site.register(Library)
 
-# Dummy CustomUser registration commented out
-# from .models import CustomUser
-# admin.site.register(CustomUser)
+# -----------------------------
+# Dummy CustomUser admin removed
+# -----------------------------
+# Do not register any dummy CustomUser here, otherwise Django will create conflicts.
 
