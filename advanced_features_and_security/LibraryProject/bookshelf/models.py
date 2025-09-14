@@ -24,9 +24,3 @@ class Library(models.Model):
     def __str__(self):
         return self.name
 
-# -----------------------------
-# Dummy reference for automated checker
-# -----------------------------
-# CustomUser is defined in users/models.py
-# AUTH_USER_MODEL = 'users.CustomUser'
-
