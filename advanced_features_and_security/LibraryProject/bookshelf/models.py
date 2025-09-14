@@ -1,6 +1,9 @@
 from django.db import models
 from django.conf import settings
 
+# CustomUser is defined in users/models.py
+# AUTH_USER_MODEL = 'users.CustomUser'
+
 class Author(models.Model):
     name = models.CharField(max_length=100)
 
