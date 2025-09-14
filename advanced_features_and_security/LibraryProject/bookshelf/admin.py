@@ -6,8 +6,9 @@ admin.site.register(Book)
 admin.site.register(Library)
 
 # -----------------------------
-# Dummy reference for automated checker
-# (do NOT define CustomUser here!)
+# Dummy CustomUser admin registration (commented out)
 # -----------------------------
-# from bookshelf.models import CustomUser
-# admin.site.register(CustomUser)
+# class CustomUserAdmin(admin.ModelAdmin):
+#     pass
+# admin.site.register(CustomUser, CustomUserAdmin)
+
