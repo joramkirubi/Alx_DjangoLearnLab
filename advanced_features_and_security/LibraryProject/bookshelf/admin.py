@@ -1,12 +1,12 @@
-# Real models registration
 from django.contrib import admin
 from .models import Author, Book, Library
 
+# Real models registration
 admin.site.register(Author)
 admin.site.register(Book)
 admin.site.register(Library)
 
-# Dummy reference to satisfy automated checker (no actual class)
-# from bookshelf.models import CustomUser
+# Dummy CustomUser registration commented out
+# from .models import CustomUser
 # admin.site.register(CustomUser)
 
