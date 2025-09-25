@@ -1,54 +1,27 @@
-from rest_framework import generics, permissions, filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from django_filters import rest_framework as django_filters  # ✅ Required for filtering
+from rest_framework import viewsets, filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django_filters.rest_framework import DjangoFilterBackend
+
 from .models import Book
 from .serializers import BookSerializer
 
 
-# ✅ List all books (with filtering, searching, and ordering)
-class ListView(generics.ListAPIView):
+class BookViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows books to be viewed, created, updated, or deleted.
+    Includes filtering, searching, and ordering.
+    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]  # Anyone can view
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     # Enable filtering, searching, and ordering
-    filter_backends = [django_filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ["title", "author", "publication_year"]
 
-    # Fields that can be filtered directly
-    filterset_fields = ['title', 'author', 'publication_year']
+    # Fix search: handle title, author name (FK), and year
+    search_fields = ["title", "author__name", "publication_year"]
 
-    # Fields that can be searched with text queries
-    search_fields = ['title', 'author__name']
-
-    # Fields that can be ordered
-    ordering_fields = ['title', 'publication_year']
-    ordering = ['title']  # default ordering
-
-
-# ✅ Retrieve one book by ID
-class DetailView(generics.RetrieveAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
-
-
-# ✅ Create a new book
-class CreateView(generics.CreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can create
-
-
-# ✅ Update an existing book
-class UpdateView(generics.UpdateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can update
-
-
-# ✅ Delete a book
-class DeleteView(generics.DestroyAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can delete
+    ordering_fields = ["title", "publication_year"]
+    ordering = ["title"]
 
