@@ -1,5 +1,6 @@
 # api/views.py
 from rest_framework import generics, permissions, filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters import rest_framework as django_filters
 from django.views.generic import ListView   # ✅ add this
 from .models import Book
